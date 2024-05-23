@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="Settings"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_view1"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="View 1"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_view2"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="View 2"
+        app:showAsAction="ifRoom" />
+
+</menu>
