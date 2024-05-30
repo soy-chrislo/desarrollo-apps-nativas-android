@@ -5,11 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".UsersListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaUsuarios"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
 </LinearLayout>

@@ -69,6 +69,27 @@ public class DbUsuarios extends DbHelper {
     }
 
     @SuppressLint("Range")
+    public User getUser(int id) {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        User user = null;
+        try {
+            Cursor cursor = null;
+
+            cursor = db.rawQuery("SELECT * FROM users WHERE id = " + id + " LIMIT 1", null);
+            if (cursor.moveToFirst()) {
+                user = new User();
+                user.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                user.setName(cursor.getString(cursor.getColumnIndex("name")));
+                user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
+            }
+            cursor.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return user;
+    }
+    @SuppressLint("Range")
     public ArrayList<User> getUsers() {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -94,5 +115,41 @@ public class DbUsuarios extends DbHelper {
             System.out.println(e.getMessage());
         }
         return users;
+    }
+
+    public boolean updateUser (int id, String name, String password) {
+        long result = 0;
+        try {
+            DbHelper dbHelper = new DbHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put("name", name);
+            values.put("password", password);
+
+            String selection = "id = ?";
+            String[] selectionArgs = {String.valueOf(id)};
+
+            result = db.update("users", values, selection, selectionArgs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result > 0;
+    }
+
+    public boolean deleteUser(int id) {
+        long result = 0;
+        try {
+            DbHelper dbHelper = new DbHelper(context);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            String selection = "id = ?";
+            String[] selectionArgs = {String.valueOf(id)};
+
+            result = db.delete("users", selection, selectionArgs);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result > 0;
     }
 }

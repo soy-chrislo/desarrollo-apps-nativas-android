@@ -14,49 +14,44 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appsnativasucompensar.database.DbUsuarios
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var btnLogin: Button
+class UserRegisterActivity : AppCompatActivity() {
+    private lateinit var btnRegister: Button
     private lateinit var textName: EditText
     private lateinit var textPassword: EditText
-    private lateinit var toolbar: Toolbar
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_user_register)
 
-        textName = findViewById(R.id.input_name)
-        textPassword = findViewById(R.id.input_password)
-        btnLogin = findViewById(R.id.btn_login)
-        toolbar = findViewById<Toolbar>(R.id.toolbar)
+        textName = findViewById(R.id.username)
+        textPassword = findViewById(R.id.password)
+        btnRegister = findViewById(R.id.register)
+
+       val toolbar = findViewById<Toolbar>(R.id.register_toolbar)
 
         setSupportActionBar(toolbar)
 
-        btnLogin.setOnClickListener {
+        btnRegister.setOnClickListener {
             val dbUsuarios = DbUsuarios(this)
-            val userId = dbUsuarios.getUser(textName.text.toString(), textPassword.text.toString())
+            val id = dbUsuarios.insertUser(textName.text.toString(), textPassword.text.toString())
 
-            if (userId > 0) {
-                Toast.makeText(this, "Usuario autenticado", Toast.LENGTH_SHORT).show()
+            if (id > 0) {
+                Toast.makeText(this, "Usuario registrado", Toast.LENGTH_SHORT).show()
                 cleanFields()
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
             } else {
-                Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al registrar usuario", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.login_menu, menu)
+        menuInflater.inflate(R.menu.register_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.register_user -> {
-                Toast.makeText(this, "Registro de Usuario", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, UserRegisterActivity::class.java)
+            R.id.return_home -> {
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 true
             }

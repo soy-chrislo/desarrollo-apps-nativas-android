@@ -20,10 +20,10 @@ class UsersListActivity : AppCompatActivity() {
         userListView = findViewById(R.id.listaUsuarios)
         userListView.layoutManager = LinearLayoutManager(this)
 
-        var dbUsuarios = DbUsuarios(this)
+        val dbUsuarios = DbUsuarios(this)
         userList = ArrayList<User>();
 
-        var listAdapter = UserListAdapter(dbUsuarios.users);
+        val listAdapter = UserListAdapter(dbUsuarios.users);
         userListView.adapter = listAdapter;
     }
 }

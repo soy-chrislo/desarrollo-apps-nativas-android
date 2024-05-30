@@ -3,6 +3,7 @@ package com.example.appsnativasucompensar
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -41,16 +42,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                Toast.makeText(this, "Configuración", Toast.LENGTH_SHORT).show()
-                true
-            }
-            R.id.action_view1 -> {
-                Toast.makeText(this, "Vista 1", Toast.LENGTH_SHORT).show()
-                true
-            }
-            R.id.action_view2 -> {
-                Toast.makeText(this, "Vista 2", Toast.LENGTH_SHORT).show()
+            R.id.user_list -> {
+                Toast.makeText(this, "Lista de Usuarios", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, UsersListActivity::class.java)
+                startActivity(intent);
                 true
             }
             else -> super.onOptionsItemSelected(item)
